@@ -1,0 +1,36 @@
+extends layout
+
+block content
+    header
+        h1 Popular Restaurants at 
+            span#location-name
+
+    .row
+        .col-12.card.rest-container
+            .row
+                each restaurant in restaurants
+                    div(class=restaurant.class).col-4.card.rest-card
+                        img(src="images/pop-res2.jpeg")
+                        h4= restaurant.title
+                        p= restaurant.rating
+    
+    script.
+        const urlParams = new URLSearchParams(window.location.search);
+        const param1 = urlParams.get("param1");
+        document.getElementById('location-name').textContent = `${param1}`;
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get all elements with a certain class name
+            var elementsToNotDisplay = document.getElementsByClassName("restaurant");
+            var elementsToDisplay = document.getElementsByClassName(`${param1}`);
+
+            // Hide all elements with that class name
+            for (var i = 0; i < elementsToNotDisplay.length; i++) {
+                elementsToNotDisplay[i].style.display = "none";
+            }
+
+            // Show the specific elements you want to display
+            // For example, to show the first element with the class
+            for (var i = 0; i < elementsToDisplay.length; i++) {
+                elementsToDisplay[i].style.display = "block";
+            }
+        });
